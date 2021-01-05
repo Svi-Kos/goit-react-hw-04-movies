@@ -10,3 +10,12 @@
 .activeLink {
   color: #2196f3;
 }
+
+li::marker {
+  content: '♥';
+  color: #2196f3;
+}
+
+li {
+  padding: 5px;
+}

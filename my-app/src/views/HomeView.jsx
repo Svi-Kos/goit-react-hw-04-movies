@@ -1,11 +1,33 @@
+import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import * as API from '../services/movies-api';
+
 function HomeView() {
+  const [movies, setMovies] = useState([]);
+  // const { url } = useRouteMatch();
+
+  useEffect(() => {
+    API.fetchTrendMoviesByDay().then(moviesArr => {
+      setMovies(moviesArr.results);
+    });
+  }, []);
+
   return (
-    <ul>
+    <>
       <h2>Trending today</h2>
-      <li>1</li>
-      <li>2</li>
-      <li>3</li>
-    </ul>
+
+      {movies && (
+        <ul>
+          {movies.map(movie => (
+            <li key={movie.id}>
+              <Link to={`/movies/${movie.id}`}>
+                {movie.name ?? movie.title}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      )}
+    </>
   );
 }
 

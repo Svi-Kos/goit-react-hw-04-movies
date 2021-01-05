@@ -3,6 +3,7 @@ import Container from './components/Container/Container';
 import AppBar from './components/AppBar/AppBar';
 import HomeView from '../src/views/HomeView';
 import MoviesPage from '../src/views/MoviesPage';
+import MovieDetailsPage from '../src/views/MovieDetailsPage';
 
 function App() {
   return (
@@ -13,8 +14,20 @@ function App() {
           <HomeView />
         </Route>
 
-        <Route path="/movies">
+        <Route path="/movies" exact>
           <MoviesPage />
+        </Route>
+
+        <Route path="/movies/:movieId" exact>
+          <MovieDetailsPage />
+        </Route>
+
+        <Route path="/movies/:movieId/cast">
+          <MovieDetailsPage />
+        </Route>
+
+        <Route path="/movies/:movieId/reviews">
+          <MovieDetailsPage />
         </Route>
 
         <Route>
@@ -26,3 +39,4 @@ function App() {
 }
 
 export default App;
+//14d97542ae4a62e821967220e1ab473a
