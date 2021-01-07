@@ -17,3 +17,21 @@ export function fetchMovieById(movieId) {
     `${BASE_URL}/movie/${movieId}?api_key=${KEY}&language=en-US`,
   );
 }
+
+export function fetchCastInfo(movieId) {
+  return fetchMovies(
+    `${BASE_URL}/movie/${movieId}/credits?api_key=${KEY}&language=en-US`,
+  );
+}
+
+export function fetchReviews(movieId) {
+  return fetchMovies(
+    `${BASE_URL}/movie/${movieId}/reviews?api_key=${KEY}&language=en-US&page=1`,
+  );
+}
+
+export function fetchMovieByQuery() {
+  return fetchMovies(
+    `${BASE_URL}/search/movie?api_key=${KEY}&language=en-US&query=batman&page=1&include_adult=false`,
+  );
+}
