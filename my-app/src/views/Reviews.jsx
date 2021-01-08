@@ -4,26 +4,29 @@ import * as API from '../services/movies-api';
 
 function Reviews() {
   const { movieId } = useParams();
-  const [reviews, setReviews] = useState('');
+  const [reviews, setReviews] = useState([]);
   //   const { url } = useRouteMatch();
-  console.log(reviews);
   useEffect(() => {
-    API.fetchReviews(movieId).then(setReviews);
+    API.fetchReviews(movieId).then(moviesArr => {
+      setReviews(moviesArr.results);
+    });
   }, [movieId]);
 
   return (
     <div>
-      {/* {!reviews && <p>We don't have any reviews for this movie.</p>} */}
       {reviews && (
-        <ul>
-          {reviews.results.map(review => (
-            <li key={review.id}>
-              <h4>{review.author}</h4>
-              <p>{review.content}</p>
-            </li>
-          ))}
-        </ul>
+        <>
+          <ul>
+            {reviews.map(review => (
+              <li key={review.id}>
+                <h4>{review.author}</h4>
+                <p>{review.content}</p>
+              </li>
+            ))}
+          </ul>
+        </>
       )}
+      {reviews.length === 0 && <p>We don't have any reviews for this movie.</p>}
     </div>
   );
 }

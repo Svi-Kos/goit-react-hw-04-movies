@@ -1,22 +1,39 @@
-import { useParams, NavLink, useRouteMatch, Route } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import {
+  useParams,
+  NavLink,
+  useRouteMatch,
+  Route,
+  useHistory,
+} from 'react-router-dom';
+import { useState, useEffect, lazy, Suspense } from 'react';
 import * as API from '../services/movies-api';
-import Cast from './Cast';
-import Reviews from './Reviews';
+// import Cast from './Cast';
+// import Reviews from './Reviews';
 import s from './viewsStyles.module.css';
+
+const Cast = lazy(() => import('./Cast'));
+const Reviews = lazy(() => import('./Reviews'));
 
 function MovieDetailsPage() {
   const { movieId } = useParams();
   const [movie, setMovie] = useState('');
-  const { url } = useRouteMatch();
+  const { url, path } = useRouteMatch();
+  const previousPage = useHistory();
 
   useEffect(() => {
     API.fetchMovieById(movieId).then(setMovie);
   }, [movieId]);
 
+  function goPreviousPage() {
+    previousPage.goBack();
+  }
+
   return (
     // винести як ел-т MovieCard
     <div>
+      <button className={s.goBackBtn} onClick={goPreviousPage}>
+        ← Go back
+      </button>
       {movie && (
         <>
           <div className={s.movieInfo}>
@@ -38,22 +55,24 @@ function MovieDetailsPage() {
           </div>
           <hr />
           <h5>Additional Information</h5>
-          <ul>
-            <li>
-              <NavLink to={`${url}/cast`}>Cast</NavLink>
-            </li>
-            <li>
-              <NavLink to={`${url}/reviews`}>Reviews</NavLink>
-            </li>
-          </ul>
-          <hr />
-          <Route path="/movies/:movieId/cast">
-            <Cast />
-          </Route>
-
-          <Route path="/movies/:movieId/reviews">
-            <Reviews />
-          </Route>
+          <Suspense fallback={<div>Wait...</div>}>
+            {' '}
+            <ul>
+              <li>
+                <NavLink to={`${url}/cast`}>Cast</NavLink>
+              </li>
+              <li>
+                <NavLink to={`${url}/reviews`}>Reviews</NavLink>
+              </li>
+            </ul>
+            <hr />
+            <Route path={`${path}/cast`}>
+              <Cast />
+            </Route>
+            <Route path={`${path}/reviews`}>
+              <Reviews />
+            </Route>
+          </Suspense>
         </>
       )}
     </div>

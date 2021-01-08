@@ -8,17 +8,21 @@ function Cast() {
   //   const { url } = useRouteMatch();
 
   useEffect(() => {
-    API.fetchCastInfo(movieId).then(setCast);
+    API.fetchCastInfo(movieId).then(moviesArr => {
+      setCast(moviesArr.cast);
+    });
   }, [movieId]);
-  //якщо нема фото, показати зарезервоване
+
   return (
     <div>
       {cast && (
         <ul>
-          {cast.cast.map(actor => (
+          {cast.slice(0, 10).map(actor => (
             <li key={actor.id}>
               <img
-                src={`https://image.tmdb.org/t/p/w500${actor.profile_path}`}
+                src={`https://image.tmdb.org/t/p/w500${
+                  actor.profile_path || '/gMWrKQjoTIpYjhc8SxZF20EDIES.jpg'
+                }`}
                 alt={actor.name}
                 width="100"
               />
