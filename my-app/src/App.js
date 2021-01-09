@@ -2,20 +2,32 @@ import { lazy, Suspense } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import Container from './components/Container/Container';
 import AppBar from './components/AppBar/AppBar';
+import Loader from 'react-loader-spinner';
+import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 // import HomeView from '../src/views/HomeView';
 // import MoviesPage from '../src/views/MoviesPage';
 // import MovieDetailsPage from '../src/views/MovieDetailsPage';
-//додає динамічний імпорт через lazy
-const HomeView = lazy(() => import('views/HomeView'));
-const MoviesPage = lazy(() => import('views/MoviesPage'));
-const MovieDetailsPage = lazy(() => import('views/MovieDetailsPage'));
+
+const HomeView = lazy(() =>
+  import('views/HomeView' /* webpackChunkName: "home-view" */),
+);
+const MoviesPage = lazy(() =>
+  import('views/MoviesPage' /* webpackChunkName: "movies-page" */),
+);
+const MovieDetailsPage = lazy(() =>
+  import('views/MovieDetailsPage' /* webpackChunkName: "movie-details-page" */),
+);
 
 function App() {
   return (
     <Container>
       <AppBar />
 
-      <Suspense fallback={<div>Wait...</div>}>
+      <Suspense
+        fallback={
+          <Loader type="Hearts" color="#2196f3" height={80} width={80} />
+        }
+      >
         <Switch>
           <Route path="/" exact>
             <HomeView />

@@ -4,7 +4,6 @@ import MoviList from '../components/MovieList/MoviList';
 
 function HomeView() {
   const [movies, setMovies] = useState([]);
-  // const { url } = useRouteMatch();
 
   useEffect(() => {
     API.fetchTrendMoviesByDay().then(moviesArr => {

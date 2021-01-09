@@ -30,8 +30,8 @@ export function fetchReviews(movieId) {
   );
 }
 
-export function fetchMovieByQuery() {
+export function fetchMovieByQuery(query) {
   return fetchMovies(
-    `${BASE_URL}/search/movie?api_key=${KEY}&language=en-US&query=batman&page=1&include_adult=false`,
+    `${BASE_URL}/search/movie?api_key=${KEY}&language=en-US&query=${query}&page=1&include_adult=false`,
   );
 }

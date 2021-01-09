@@ -5,7 +5,7 @@ import * as API from '../services/movies-api';
 function Reviews() {
   const { movieId } = useParams();
   const [reviews, setReviews] = useState([]);
-  //   const { url } = useRouteMatch();
+
   useEffect(() => {
     API.fetchReviews(movieId).then(moviesArr => {
       setReviews(moviesArr.results);

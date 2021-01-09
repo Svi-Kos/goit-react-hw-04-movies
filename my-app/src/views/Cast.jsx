@@ -5,7 +5,6 @@ import * as API from '../services/movies-api';
 function Cast() {
   const { movieId } = useParams();
   const [cast, setCast] = useState('');
-  //   const { url } = useRouteMatch();
 
   useEffect(() => {
     API.fetchCastInfo(movieId).then(moviesArr => {
