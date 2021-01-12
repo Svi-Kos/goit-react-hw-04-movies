@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import * as API from '../services/movies-api';
 import MoviList from '../components/MovieList/MoviList';
 

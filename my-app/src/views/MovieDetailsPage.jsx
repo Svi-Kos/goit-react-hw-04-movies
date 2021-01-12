@@ -1,3 +1,4 @@
+import React, { useState, useEffect, lazy, Suspense } from 'react';
 import {
   useParams,
   NavLink,
@@ -5,18 +6,19 @@ import {
   Route,
   useHistory,
 } from 'react-router-dom';
-import { useState, useEffect, lazy, Suspense } from 'react';
+import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
+import Loader from 'react-loader-spinner';
 import * as API from '../services/movies-api';
 import MovieCard from 'components/MovieCard/Moviecard';
-import Loader from 'react-loader-spinner';
-import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 // import Cast from './Cast';
 // import Reviews from './Reviews';
 import s from './viewsStyles.module.css';
 
-const Cast = lazy(() => import('./Cast' /* webpackChunkName: "cast" */));
+const Cast = lazy(() =>
+  import('components/Cast/Cast' /* webpackChunkName: "cast" */),
+);
 const Reviews = lazy(() =>
-  import('./Reviews' /* webpackChunkName: "reviews" */),
+  import('components/Reviews/Reviews' /* webpackChunkName: "reviews" */),
 );
 
 function MovieDetailsPage() {

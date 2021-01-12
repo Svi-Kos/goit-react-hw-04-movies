@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 function Form({ onSubmit }) {
   const [query, setQuery] = useState('');

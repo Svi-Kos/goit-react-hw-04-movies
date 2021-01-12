@@ -1,9 +1,9 @@
-import { lazy, Suspense } from 'react';
+import React, { lazy, Suspense } from 'react';
 import { Switch, Route } from 'react-router-dom';
+import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
+import Loader from 'react-loader-spinner';
 import Container from './components/Container/Container';
 import AppBar from './components/AppBar/AppBar';
-import Loader from 'react-loader-spinner';
-import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 // import HomeView from '../src/views/HomeView';
 // import MoviesPage from '../src/views/MoviesPage';
 // import MovieDetailsPage from '../src/views/MovieDetailsPage';
