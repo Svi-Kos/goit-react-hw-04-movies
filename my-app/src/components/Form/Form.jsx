@@ -13,6 +13,7 @@ function Form({ onSubmit }) {
       alert('Please enter more specific query');
       return;
     }
+
     onSubmit(query);
     setQuery('');
   }

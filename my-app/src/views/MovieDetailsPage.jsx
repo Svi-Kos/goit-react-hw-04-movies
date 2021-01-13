@@ -5,6 +5,7 @@ import {
   useRouteMatch,
   Route,
   useHistory,
+  useLocation,
 } from 'react-router-dom';
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 import Loader from 'react-loader-spinner';
@@ -25,19 +26,20 @@ function MovieDetailsPage() {
   const { movieId } = useParams();
   const [movie, setMovie] = useState('');
   const { url, path } = useRouteMatch();
-  const previousPage = useHistory();
+  const history = useHistory();
+  const location = useLocation();
 
   useEffect(() => {
     API.fetchMovieById(movieId).then(setMovie);
   }, [movieId]);
 
   function goPreviousPage() {
-    previousPage.goBack();
+    history.push(location?.state?.from ?? '/movies');
   }
 
   return (
     <div>
-      <button className={s.goBackBtn} onClick={goPreviousPage}>
+      <button type="button" className={s.goBackBtn} onClick={goPreviousPage}>
         ← Go back
       </button>
       {movie && (
@@ -47,10 +49,24 @@ function MovieDetailsPage() {
           <h5>Additional Information</h5>
           <ul>
             <li>
-              <NavLink to={`${url}/cast`}>Cast</NavLink>
+              <NavLink
+                to={{
+                  pathname: `${url}/cast`,
+                  state: { from: location?.state?.from ?? '/movies' },
+                }}
+              >
+                Cast
+              </NavLink>
             </li>
             <li>
-              <NavLink to={`${url}/reviews`}>Reviews</NavLink>
+              <NavLink
+                to={{
+                  pathname: `${url}/reviews`,
+                  state: { from: location?.state?.from ?? '/movies' },
+                }}
+              >
+                Reviews
+              </NavLink>
             </li>
           </ul>
           <hr />

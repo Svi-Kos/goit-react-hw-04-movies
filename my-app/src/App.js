@@ -40,10 +40,6 @@ function App() {
           <Route path="/movies/:movieId">
             <MovieDetailsPage />
           </Route>
-
-          <Route>
-            <HomeView />
-          </Route>
         </Switch>
       </Suspense>
     </Container>
@@ -51,4 +47,3 @@ function App() {
 }
 
 export default App;
-//14d97542ae4a62e821967220e1ab473a
